@@ -56,7 +56,7 @@ class Attraction(Base):
         }
 
 
-engine = create_engine('postgresql://catalog:catalog@34.234.90.75/cityattraction')
+engine = create_engine('postgresql://catalog:catalog@localhost/cityattraction')
 
 
 Base.metadata.create_all(engine)
