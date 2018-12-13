@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<body>
+  <div class="col onecol">
+  	{% with messages = get_flashed_messages() %}
+      {% if messages %}
+
+      <ul>
+      {% for message in messages %}
+        <li><strong>{{message}}</strong></li>
+      {% endfor %}
+      </ul>
+      {% endif %}
+    {% endwith %}
+     <p></p>
+	
+	<h2>{{ attraction.name }} - {{ city.name }}</h2>
+	
+    <div>
+	  <a href="{{url_for('editAttraction', city_id=city.id, attraction_id=attraction.id)}}">Edit</a>
+	  <a href="{{url_for('deleteAttraction', city_id=city.id, attraction_id=attraction.id)}}">Delete</a>
+	  <p></p>
+	  <p></p>
+	  <p>{{ attraction.description }}</p>
+	  <p></p>
+	  <a href="{{url_for('newAttraction', city_id=city.id)}}">
+      <button>Add a new attraction</button>
+      <a href="{{url_for('showCity', city_id=city.id)}}">
+      <button>Go Back</button>
+    </div>
+  </div>
+</body>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+		<div class="container">
+		  <div class="row topbanner">
+        <h1>Cities and Attractions App</h1>
+        <img class="homeicon" src="{{ url_for('static', filename='home_page.png') }}", width=30, height=30/>
+        <a class="homepage" href="{{ url_for('showAll') }}">Home</a>
+        {% if isLogin == False %}
+        <a href="{{ url_for('showLogin') }}">
+          <button class="login">Login</button> 
+        </a>
+        {% else %}
+        <a href="{{ url_for('gdisconnect') }}">
+          <button class="login">Logout</button>
+        </a>
+        {% endif %}
+      </div>
+		  {% block content %}
+		  {% endblock %}
+		</div>
+</body>
+</html>

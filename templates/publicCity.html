@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+  
+  
+  <div class="row">
+    <div class = "col-3 left"> 
+  	  <h2>Cities</h2>
+      {% for city in cities %}
+        <a href = "{{url_for('showCity', city_id = city.id)}}">
+        <ul><li class="city">{{ city.name }}</li></ul>
+        </a>
+      {% endfor %}
+    </div>
+
+    <div class="col-9 right">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+
+      <ul>
+      {% for message in messages %}
+        <li><strong>{{message}}</strong></li>
+      {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
+     <p></p>
+      <h2>{{ city.name }} </h2>
+      <p class="creator">Creator: {{ owner.name }}</p>
+      <p></p>
+  	  {% for attraction in attractions %}
+  	    <a href="{{url_for('showAttraction', city_id=city.id, attraction_id = attraction.id)}}">
+  	    <li class="attraction">{{ attraction.name }}</li>
+  	    </a>
+  	 {% endfor %}
+     </div>
+  </div>
+
+ </body>
+
+ {% endblock %}

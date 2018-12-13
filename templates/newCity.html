@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>New City</h1>
+<body>
+<div class="col onecol">
+<form action="{{url_for('newCity')}}" method="POST">
+
+<p>Name:</p>
+
+<input type="text" size='30' name="name">
+<input type="submit" value="Create">
+</form>
+</div>
+</body>
+
+{% endblock %}
