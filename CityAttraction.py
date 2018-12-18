@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 
 from database_setup import City, Base, Attraction, User
 
-engine = create_engine('postgresql://catalog:catalog@localhost/cityattraction')
+engine = create_engine('postgresql://catalog:catalog@localhost/catalog')
 
 Base.metadata.bind = engine
 
