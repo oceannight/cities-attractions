@@ -24,8 +24,7 @@ CLIENT_ID = json.loads(
 APPLICATION_NAME = "Cities and Attractions"
 
 # Connect to Database and create database session
-engine = create_engine('postgresql://catalog:catalog@localhost/catalog',
-                       connect_args={'check_same_thread': False})
+engine = create_engine('postgresql://catalog:catalog@localhost/catalog')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -59,10 +58,11 @@ def login_required(f):
 def gconnect():
     # Validate state token
     if request.args.get('state') != login_session['state']:
+        print 'state'
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-
+    
     # Obtain authorization code
     code = request.data
     print code
@@ -79,6 +79,7 @@ def gconnect():
 
     # Check that the access token is valid
     access_token = credentials.access_token
+    print access_token
     url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
            % access_token)
     h = httplib2.Http()
@@ -92,6 +93,7 @@ def gconnect():
     # Verify that the access token is used for the intended user.
     gplus_id = credentials.id_token['sub']
     if result['user_id'] != gplus_id:
+        print 'gplus_id'
         response = make_response(
             json.dumps("Token's user ID doesn't match given user ID."), 401)
         response.headers['Content-Type'] = 'application/json'
@@ -390,5 +392,5 @@ def deleteAttraction(city_id, attraction_id):
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True
-    app.run(port="80")
+    app.run(host='0.0.0.0', port=80)
 
