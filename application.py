@@ -285,14 +285,13 @@ def editCity(city_id):
 @login_required
 def deleteCity(city_id):
     cityToDelete = session.query(City).filter_by(id=city_id).one()
-    attraction = session.query(Attraction).filter_by(city_id=city_id)
     owner = getUser(cityToDelete.user_id)
     if owner.id != login_session['user_id']:
         flash("You are not allowed to delete")
         return redirect(url_for('showCity', city_id=cityToDelete.id))
     elif request.method == 'POST':
         session.delete(cityToDelete)
-        attraction.delete()
+        session.query(Attraction).filter_by(city_id=city_id).delete()
         session.commit()
         flash('City %s has been deleted' % (cityToDelete.name))
         return redirect(url_for('showAll'))
