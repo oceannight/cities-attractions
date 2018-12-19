@@ -292,7 +292,7 @@ def deleteCity(city_id):
         return redirect(url_for('showCity', city_id=cityToDelete.id))
     elif request.method == 'POST':
         session.delete(cityToDelete)
-        session.delete(attraction)
+        session.attraction.delete()
         session.commit()
         flash('City %s has been deleted' % (cityToDelete.name))
         return redirect(url_for('showAll'))
