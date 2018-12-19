@@ -290,8 +290,8 @@ def deleteCity(city_id):
         flash("You are not allowed to delete")
         return redirect(url_for('showCity', city_id=cityToDelete.id))
     elif request.method == 'POST':
-        session.delete(cityToDelete)
         session.query(Attraction).filter_by(city_id=city_id).delete()
+        session.delete(cityToDelete)
         session.commit()
         flash('City %s has been deleted' % (cityToDelete.name))
         return redirect(url_for('showAll'))
